@@ -19,16 +19,31 @@ func main() {
 	}
 
 	var router *gin.Engine = gin.Default()
-
-	router.GET("/testGet", testGet)
-	router.POST("/testPost", testPost)
+	router.GET("/", mainPage)
+	router.GET(consts.Get("get"), get)
+	router.POST(consts.Get("post"), post)
 	router.Run(":" + port)
 }
 
-func testGet(c *gin.Context) {
+func mainPage(c *gin.Context) {
+	c.HTML(http.StatusOK, "pages/main.tmpl", gin.H{
+		"name": consts.Get("name"),
+		"urls": getApiUrls(c),
+	})
+}
+
+func getApiUrls(c *gin.Context) []string {
+	var result = [...]string{
+		c.Request.Host + consts.Get("get"),
+		c.Request.Host + consts.Get("post"),
+	}
+	return result[:]
+}
+
+func get(c *gin.Context) {
 	c.String(http.StatusOK, consts.Get("puk"))
 }
 
-func testPost(c *gin.Context) {
+func post(c *gin.Context) {
 	c.String(http.StatusOK, "test")
 }

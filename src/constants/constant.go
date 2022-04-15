@@ -1,7 +1,9 @@
 package constants
 
 var consts map[string]string = map[string]string{
-	"token": "someToken",
+	"name": "MyFirstApi",
+	"get":  "/Get",
+	"post": "/Post",
 }
 
 func Get(name string) string {
