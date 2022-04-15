@@ -23,7 +23,7 @@ func main() {
 	var router *gin.Engine = gin.Default()
 
 	router.Use(gin.Logger())
-	//router.LoadHTMLGlob("pages/*.html")
+	router.LoadHTMLGlob(os.Getenv("_") + "/pages/*.html")
 	router.Static("/static", "static")
 
 	router.GET(consts.Get("main"), mainPage)
@@ -33,10 +33,10 @@ func main() {
 }
 
 func mainPage(c *gin.Context) {
-	// c.HTML(http.StatusOK, "main.html", gin.H{
-	// 	"name": consts.Get("name"),
-	// 	"urls": getApiUrls(c),
-	// })
+	c.HTML(http.StatusOK, "main.html", gin.H{
+		"name": consts.Get("name"),
+		"urls": getApiUrls(c),
+	})
 }
 
 func getApiUrls(c *gin.Context) map[string]string {
