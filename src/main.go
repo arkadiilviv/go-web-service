@@ -19,7 +19,11 @@ func main() {
 	}
 
 	var router *gin.Engine = gin.Default()
-	router.LoadHTMLFiles("pages/main.html")
+
+	router.Use(gin.Logger())
+	router.LoadHTMLGlob("pages/*.html")
+	router.Static("/static", "static")
+
 	router.GET(consts.Get("main"), mainPage)
 	router.GET(consts.Get("get"), get)
 	router.POST(consts.Get("post"), post)
