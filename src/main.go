@@ -23,7 +23,7 @@ func main() {
 	var router *gin.Engine = gin.Default()
 
 	router.Use(gin.Logger())
-	router.LoadHTMLGlob(os.Getenv("PATH") + "/pages/*.html")
+	router.LoadHTMLGlob("src/pages/**/*")
 	router.Static("/static", "static")
 
 	router.GET(consts.Get("main"), mainPage)
