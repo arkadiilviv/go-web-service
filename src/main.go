@@ -7,12 +7,14 @@ import (
 
 	"log"
 	"os"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	port := os.Getenv("PORT")
+
 	//port = "8080"
 	if port == "" {
 		log.Fatal("$PORT must be set")
@@ -46,7 +48,11 @@ func getApiUrls(c *gin.Context) map[string]string {
 }
 
 func get(c *gin.Context) {
-	c.String(http.StatusOK, consts.Get("puk"))
+	var result string = ""
+	for _, item := range os.Environ() {
+		result += strings.SplitN(item, "=", 2)[0] + " : " + strings.SplitN(item, "=", 2)[1] + "\n"
+	}
+	c.String(http.StatusOK, result)
 }
 
 func post(c *gin.Context) {
