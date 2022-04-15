@@ -19,14 +19,14 @@ func main() {
 	}
 
 	var router *gin.Engine = gin.Default()
-	router.GET("/", mainPage)
+	router.GET(consts.Get("main"), mainPage)
 	router.GET(consts.Get("get"), get)
 	router.POST(consts.Get("post"), post)
 	router.Run(":" + port)
 }
 
 func mainPage(c *gin.Context) {
-	c.HTML(http.StatusOK, "pages/main.tmpl", gin.H{
+	c.HTML(http.StatusOK, "main.tmpl", gin.H{
 		"name": consts.Get("name"),
 		"urls": getApiUrls(c),
 	})
